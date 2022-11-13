@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  wordsdb:
+    image: mongo
+
+  words.api:
+    image: ${DOCKER_REGISTRY-}wordsapi
+    build:
+      context: .
+      dockerfile: Services/Words/Words.API/Dockerfile
+      
+volumes:
+  mongo_data:

@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  wordsdb:
+    container_name: wordsdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  words.api:
+    container_name: words.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings__ConnectionString=mongodb://wordsdb:27017"
+    depends_on:
+      - wordsdb
+    ports:
+      - "8000:80"
